@@ -29,6 +29,11 @@ class App extends Component {
     }
 
     getStudents(page) {
+
+        if (page === 0) {
+            return;
+        }
+
         this.loading();
         setTimeout(() => {
             this.updateStudents((new Paginator()).get(page));
@@ -38,6 +43,22 @@ class App extends Component {
     updateStudents(paginator) {
         this.setState({paginator});
         this.loaded();
+    }
+
+    renderPaginator() {
+        const {paginator} = this.state;
+        return (
+            <div className="btn-group">
+                <button className="btn btn-default" onClick={e => {
+                    this.getStudents(paginator.has_previous_page ? (paginator.current_page - 1) : 0)
+                }}>Previous
+                </button>
+                <button className="btn btn-default" onClick={e => {
+                    this.getStudents(paginator.has_next_page ? (paginator.current_page + 1) : 0)
+                }}>Next
+                </button>
+            </div>
+        )
     }
 
     renderTableBody() {
@@ -65,7 +86,13 @@ class App extends Component {
     }
 
     renderTable() {
-
+        if (this.state.loading) {
+            return (
+                <h4>
+                    <i className="fa fa-spinner fa-spin fa-3x fa-fw"/>
+                </h4>
+            )
+        }
         return (
             <table className="table table-striped table-responsive">
                 {this.renderTableHead()}
@@ -91,7 +118,9 @@ class App extends Component {
                             </div>
                             <div className="panel-body">
                                 {this.renderTable()}
-
+                            </div>
+                            <div className="panel-footer">
+                                {this.renderPaginator()}
                             </div>
                         </div>
                     </div>

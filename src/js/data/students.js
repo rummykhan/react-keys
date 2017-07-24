@@ -32,7 +32,7 @@ const students = [
     {
         id: 7,
         name: 'maaz',
-        age: '',
+        age: 25,
     }
 ];
 
