@@ -16,11 +16,10 @@ class TableRow extends Component {
     getCourses(id) {
         (new CourseService()).getCourses(id)
             .then(response => {
-                console.log('response', response);
                 this.updateCourses(response.courses);
             })
             .catch(error => {
-                console.log('error', error);
+
             });
     }
 

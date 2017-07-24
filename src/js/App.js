@@ -66,7 +66,7 @@ class App extends Component {
         return (
             <tbody>
             {paginator.data.map((student, index) => {
-                return <TableRow student={student} key={index}/>
+                return <TableRow student={student} key={student.id}/>
             })}
             </tbody>
         )
